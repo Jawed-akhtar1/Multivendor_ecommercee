@@ -1,0 +1,73 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: multivendor-ecommerce
+  datasource:
+    url: jdbc:mysql://localhost:3306/multivendor_ecommmerce?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: "root"
+    password: "Jawed@786"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  jackson:
+    default-property-inclusion: non_null
+
+app:
+  jwt:
+    # Change this secret before deploying to production. Must be >= 256 bits for HS256.
+    secret: ${JWT_SECRET:change-this-super-secret-key-please-replace-in-prod-min-32-bytes}
+    expiration-ms: 86400000   # 24 hours
+    refresh-expiration-ms: 604800000  # 7 days
+
+  # --- Shiprocket (real courier API) ---
+  # Sign up at https://www.shiprocket.in, add a pickup address in
+  # Settings > Pickup Addresses, and note its exact "pickup location" nickname.
+  # These credentials are your normal Shiprocket account login — Shiprocket's
+  # API does not use separate API keys, it exchanges email/password for a
+  # short-lived bearer token (see ShiprocketClient).
+  shiprocket:
+    enabled: ${SHIPROCKET_ENABLED:false}   # keep false until real credentials are set
+    base-url: ${SHIPROCKET_BASE_URL:https://apiv2.shiprocket.in/v1/external}
+    email: ${SHIPROCKET_EMAIL:}
+    password: ${SHIPROCKET_PASSWORD:}
+    pickup-location: ${SHIPROCKET_PICKUP_LOCATION:}
+    # Shared secret you choose yourself and configure in the Shiprocket webhook
+    # dashboard, sent back as an "X-Api-Key" header so /api/shipping/webhook
+    # can confirm a request genuinely came from Shiprocket.
+    webhook-secret: ${SHIPROCKET_WEBHOOK_SECRET:change-this-webhook-secret}
+
+  # --- CCAvenue (real payment gateway) ---
+  # From your CCAvenue merchant dashboard: Settings > API Keys.
+  # transaction-url: use the *-stage.ccavenue.com URL while you're on a Test
+  # merchant account, switch to the secure.ccavenue.com URL only once you have
+  # a live/production CCAvenue account. Confirm both URLs against CCAvenue's
+  # current docs before going live.
+  ccavenue:
+    enabled: ${CCAVENUE_ENABLED:false}   # keep false until real credentials are set
+    merchant-id: ${CCAVENUE_MERCHANT_ID:}
+    working-key: ${CCAVENUE_WORKING_KEY:}
+    access-code: ${CCAVENUE_ACCESS_CODE:}
+    transaction-url: ${CCAVENUE_TRANSACTION_URL:https://securegw-stage.ccavenue.com/transaction/transaction.do?command=initiateTransaction}
+    # Must be a publicly reachable HTTPS URL in production (CCAvenue's servers POST to it directly).
+    redirect-url: ${CCAVENUE_REDIRECT_URL:http://localhost:8080/api/payments/ccavenue/callback}
+    # Where we send the customer's browser after processing CCAvenue's callback.
+    frontend-return-url: ${CCAVENUE_FRONTEND_RETURN_URL:http://localhost:5173/orders}
+
+  # --- Commission ---
+  # Applied to a vendor's sub-order at order-placement time (snapshotted onto
+  # VendorOrder, so later rate changes don't retroactively affect past orders).
+  # A specific vendor's own Vendor.commissionRate overrides this if set.
+  commission:
+    default-rate-percent: ${DEFAULT_COMMISSION_RATE_PERCENT:10.00}
+
+logging:
+  level:
+    com.multivendor.ecommerce: DEBUG
