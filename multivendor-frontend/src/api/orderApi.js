@@ -1,21 +1,27 @@
 import api from "./axios";
 
-export const getAddresses = async () => {
-  const response = await api.get("/addresses");
+export const createOrder = async (orderData) => {
+  const response = await api.post("/orders", orderData);
   return response.data;
 };
 
-export const createAddress = async (addressData) => {
-  const response = await api.post("/addresses", addressData);
+export const getOrders = async (page = 0, size = 10) => {
+  const response = await api.get("/orders", {
+    params: {
+      page,
+      size,
+    },
+  });
+
   return response.data;
 };
 
-export const updateAddress = async (id, addressData) => {
-  const response = await api.put(`/addresses/${id}`, addressData);
+export const getOrderById = async (id) => {
+  const response = await api.get(`/orders/${id}`);
   return response.data;
 };
 
-export const deleteAddress = async (id) => {
-  const response = await api.delete(`/addresses/${id}`);
+export const cancelOrder = async (id) => {
+  const response = await api.post(`/orders/${id}/cancel`);
   return response.data;
 };

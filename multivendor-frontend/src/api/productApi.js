@@ -1,6 +1,6 @@
 import api from "./axios";
 
-export const getProduct = async (params = {}) => {
+export const getProducts = async (params = {}) => {
   const response = await api.get("/products", { params });
   return response.data;
 };
