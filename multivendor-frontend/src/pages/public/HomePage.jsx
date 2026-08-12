@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
     <main>
-      {/* =====================================================
-          1. HERO SECTION
-      ====================================================== */}
+
       <section>
         <div>
           <p>YOUR ONE-STOP ONLINE MARKETPLACE</p>
@@ -47,9 +45,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* =====================================================
-          2. FEATURE HIGHLIGHTS
-      ====================================================== */}
       <section>
         <div>
           <h2>Everything you need for a better shopping experience</h2>
@@ -99,9 +94,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* =====================================================
-          3. SHOP BY CATEGORY
-      ====================================================== */}
       <section>
         <div>
           <div>
@@ -169,9 +161,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* =====================================================
-          4. DISCOVER PRODUCTS
-      ====================================================== */}
       <section>
         <div>
           <p>FIND WHAT YOU NEED</p>
@@ -212,10 +201,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-      {/* =====================================================
-          5. HOW IT WORKS
-      ====================================================== */}
       <section>
         <div>
           <p>SIMPLE SHOPPING</p>
@@ -262,10 +247,6 @@ const HomePage = () => {
           </article>
         </div>
       </section>
-
-      {/* =====================================================
-          6. SELLER SECTION
-      ====================================================== */}
       <section>
         <div>
           <p>FOR SELLERS</p>
@@ -300,9 +281,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* =====================================================
-          7. MARKETPLACE EXPERIENCE
-      ====================================================== */}
       <section>
         <div>
           <p>BUILT FOR EVERYONE</p>
@@ -338,10 +316,6 @@ const HomePage = () => {
           </article>
         </div>
       </section>
-
-      {/* =====================================================
-          8. FINAL CTA
-      ====================================================== */}
       <section>
         <div>
           <p>START EXPLORING</p>
