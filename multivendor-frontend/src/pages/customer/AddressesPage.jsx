@@ -9,16 +9,12 @@ import {
 
 import AddressCard from "../../components/address/AddressCard.jsx";
 import AddressModal from "../../components/address/AddressModel.jsx";
-
 import Loading from "../../components/common/Loading.jsx";
 import ErrorMessage from "../../components/common/ErrorMessage.jsx";
-
 const AddressesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
-
   const { data, isLoading, isError, error } = useAddresses();
-
   const createMutation = useCreateAddress();
   const updateMutation = useUpdateAddress();
   const deleteMutation = useDeleteAddress();
@@ -26,20 +22,16 @@ const AddressesPage = () => {
   if (isLoading) {
     return <Loading message="Loading addresses..." />;
   }
-
   if (isError) {
     return (
       <ErrorMessage message={error?.message || "Failed to load addresses."} />
     );
   }
-
   const addresses = data?.data ?? data ?? [];
-
   const handleAdd = () => {
     setSelectedAddress(null);
     setIsModalOpen(true);
   };
-
   const handleEdit = (address) => {
     setSelectedAddress(address);
     setIsModalOpen(true);
@@ -62,23 +54,19 @@ const AddressesPage = () => {
 
       return;
     }
-
     createMutation.mutate(addressData, {
       onSuccess: () => {
         setIsModalOpen(false);
       },
     });
   };
-
   const handleDelete = (id) => {
     deleteMutation.mutate(id);
   };
-
   const handleCancel = () => {
     setIsModalOpen(false);
     setSelectedAddress(null);
   };
-
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
