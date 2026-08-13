@@ -3,50 +3,31 @@ import {
   Outlet,
 } from "react-router-dom";
 
-// Layout
 import Navbar from "../components/layout/Navbar.jsx";
 import Footer from "../components/layout/Footer.jsx";
-
-// Route Guards
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import RoleRoute from "./RoleRoute.jsx";
 import GuestRoute from "./GuestRoute.jsx";
-
-// Public Pages
 import HomePage from "../pages/public/HomePage.jsx";
 import LoginPage from "../pages/public/LoginPage.jsx";
 import RegisterPage from "../pages/public/RegisterPage.jsx";
 import ProductsPage from "../pages/public/ProductsPage.jsx";
 import ProductDetailPage from "../pages/public/ProductDetailPage.jsx";
-
-// Customer Pages
 import CartPage from "../pages/customer/CartPage.jsx";
 import AddressesPage from "../pages/customer/AddressesPage.jsx";
 import CheckoutPage from "../pages/customer/CheckoutPage.jsx";
 import OrdersPage from "../pages/customer/OrdersPage.jsx";
 import OrderDetailPage from "../pages/customer/OrderDetailPage.jsx";
-
-// Vendor Pages
 import VendorDashboardPage from "../pages/vendor/VendorDashboardPage.jsx";
 import StoreProfilePage from "../pages/vendor/StoreProfilePage.jsx";
 import VendorProductsPage from "../pages/vendor/VendorProductsPage.jsx";
 import AddProductPage from "../pages/vendor/AddProductPage.jsx";
 import EditProductPage from "../pages/vendor/EditProductPage.jsx";
 import VendorOrdersPage from "../pages/vendor/VendorOrdersPage.jsx";
-
-// Admin Pages
 import AdminDashboardPage from "../pages/admin/AdminDashboardPage.jsx";
 import VendorApprovalsPage from "../pages/admin/VendorApprovalsPage.jsx";
 import CategoryManagementPage from "../pages/admin/CategoryManagementPage.jsx";
 import AdminOrdersPage from "../pages/admin/AdminOrdersPage.jsx";
-
-
-/*
-|--------------------------------------------------------------------------
-| Application Layout
-|--------------------------------------------------------------------------
-*/
-
 const AppLayout = () => {
   return (
     <>
@@ -60,20 +41,7 @@ const AppLayout = () => {
     </>
   );
 };
-
-
-/*
-|--------------------------------------------------------------------------
-| Router
-|--------------------------------------------------------------------------
-*/
-
 const router = createBrowserRouter([
-  /*
-  |--------------------------------------------------------------------------
-  | PUBLIC ROUTES
-  |--------------------------------------------------------------------------
-  */
 
   {
     element: <AppLayout />,
@@ -93,14 +61,6 @@ const router = createBrowserRouter([
         path: "/products/:id",
         element: <ProductDetailPage />,
       },
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | GUEST ROUTES
-      |--------------------------------------------------------------------------
-      */
-
       {
         element: <GuestRoute />,
 
@@ -116,13 +76,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | CUSTOMER ROUTES
-      |--------------------------------------------------------------------------
-      */
 
       {
         element: <ProtectedRoute />,
@@ -164,13 +117,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | VENDOR ROUTES
-      |--------------------------------------------------------------------------
-      */
 
       {
         element: <ProtectedRoute />,
@@ -218,13 +164,6 @@ const router = createBrowserRouter([
         ],
       },
 
-
-      /*
-      |--------------------------------------------------------------------------
-      | ADMIN ROUTES
-      |--------------------------------------------------------------------------
-      */
-
       {
         element: <ProtectedRoute />,
 
@@ -262,14 +201,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | FALLBACK
-  |--------------------------------------------------------------------------
-  */
-
   {
     path: "*",
     element: <HomePage />,
