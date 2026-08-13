@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useCategories } from "../../hooks/useCategories.js";
 import Loading from "../../components/common/Loading.jsx";
 import ErrorMessage from "../../components/common/ErrorMessage.jsx";
@@ -8,21 +7,14 @@ import {
   useUpdateAdminCategory,
   useDeleteAdminCategory,
 } from "../../hooks/useAdmin.js";
-
 import CategoryForm from "../../components/admin/CategoryForm.jsx";
 import CategoryTable from "../../components/admin/CategoryTable.jsx";
-
 const CategoryManagementPage = () => {
   const [editingCategory, setEditingCategory] = useState(null);
-
   const { data: categories, isLoading, isError } = useCategories(false);
-
   const createMutation = useCreateAdminCategory();
-
   const updateMutation = useUpdateAdminCategory();
-
   const deleteMutation = useDeleteAdminCategory();
-
   if (isLoading) {
     return <Loading message="Loading categories..." />;
   }
