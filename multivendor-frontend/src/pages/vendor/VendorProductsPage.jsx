@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import {
   useVendorProducts,
   useDeleteVendorProduct,
 } from "../../hooks/useVendor.js";
-
 import VendorProductTable from "../../components/vendor/VendorProductTable.jsx";
 import Pagination from "../../components/common/Pagination.jsx";
 import Loading from "../../components/common/Loading.jsx";
@@ -13,33 +11,25 @@ import ErrorMessage from "../../components/common/ErrorMessage.jsx";
 
 const VendorProductsPage = () => {
   const [page, setPage] = useState(0);
-
   const { data, isLoading, isError, error } = useVendorProducts({
     page,
     size: 20,
   });
-
   const deleteMutation = useDeleteVendorProduct();
-
   if (isLoading) {
     return <Loading message="Loading products..." />;
   }
-
   if (isError) {
     return (
       <ErrorMessage message={error?.message || "Unable to load products."} />
     );
   }
-
   const products = data?.content ?? [];
-
   const handleDelete = (productId) => {
     const confirmed = window.confirm("Delete this product?");
-
     if (!confirmed) {
       return;
     }
-
     deleteMutation.mutate(productId);
   };
   return (
