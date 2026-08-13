@@ -1,9 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
 import { useCreateVendorProduct } from "../../hooks/useVendor.js";
-
 import ProductForm from "../../components/vendor/ProductForm.jsx";
-
 const AddProductPage = () => {
   const navigate = useNavigate();
 
