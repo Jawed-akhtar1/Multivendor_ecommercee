@@ -6,7 +6,6 @@ import {
 } from "../../hooks/useVendor.js";
 
 import VendorOrderTable from "../../components/vendor/VendorOrderTable.jsx";
-
 import Pagination from "../../components/common/Pagination.jsx";
 import Loading from "../../components/common/Loading.jsx";
 import ErrorMessage from "../../components/common/ErrorMessage.jsx";
