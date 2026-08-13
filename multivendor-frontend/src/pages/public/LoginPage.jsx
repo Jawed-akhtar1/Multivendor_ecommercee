@@ -3,10 +3,8 @@ import useAuth from "../../hooks/useAuth";
 
 const LoginPage = () => {
   const { login, isLoggingIn, loginError } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleSubmit = (event) => {
     event.preventDefault();
     login({ email, password });
