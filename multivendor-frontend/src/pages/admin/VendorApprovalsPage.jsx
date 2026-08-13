@@ -18,7 +18,6 @@ const VendorApprovalsPage = () => {
 
   const approveMutation = useApproveVendor();
   const rejectMutation = useRejectVendor();
-
   if (isLoading) {
     return <Loading message="Loading vendors..." />;
   }
@@ -30,7 +29,6 @@ const VendorApprovalsPage = () => {
       />
     );
   }
-
   const handleApprove = (vendorId) => {
     const confirmed = window.confirm("Approve this vendor?");
 
@@ -64,19 +62,31 @@ const VendorApprovalsPage = () => {
   };
 
   return (
-    <main>
-      <h1>Vendor Approvals</h1>
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
+      <div>
+        <h1 className="text-2xl font-bold">Vendor Approvals</h1>
+        <p className="mt-1 text-sm text-muted">
+          Review and approve seller applications.
+        </p>
+      </div>
 
-      {vendors.length === 0 ? (
-        <p>No pending vendors found.</p>
-      ) : (
-        <VendorApprovalTable
-          vendors={vendors}
-          onApprove={handleApprove}
-          onReject={handleReject}
-          processingVendorId={processingVendorId}
-        />
-      )}
+      <div className="mt-8">
+        {vendors.length === 0 ? (
+          <div className="rounded-lg border border-border bg-surface p-8 text-center">
+            <h2 className="font-semibold">No pending vendors</h2>
+            <p className="mt-2 text-sm text-muted">
+              New vendor applications will appear here.
+            </p>
+          </div>
+        ) : (
+          <VendorApprovalTable
+            vendors={vendors}
+            onApprove={handleApprove}
+            onReject={handleReject}
+            isProcessing={Boolean(processingVendorId)}
+          />
+        )}
+      </div>
     </main>
   );
 };

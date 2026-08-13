@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 import { useCategories } from "../../hooks/useCategories.js";
-
+import Loading from "../../components/common/Loading.jsx";
+import ErrorMessage from "../../components/common/ErrorMessage.jsx";
 import {
   useCreateAdminCategory,
   useUpdateAdminCategory,
@@ -23,11 +24,11 @@ const CategoryManagementPage = () => {
   const deleteMutation = useDeleteAdminCategory();
 
   if (isLoading) {
-    return <p>Loading categories...</p>;
+    return <Loading message="Loading categories..." />;
   }
 
   if (isError) {
-    return <p>Failed to load categories.</p>;
+    return <ErrorMessage message="Failed to load categories." />;
   }
 
   const handleSubmit = (categoryData) => {
@@ -63,31 +64,44 @@ const CategoryManagementPage = () => {
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <main>
-      <h1>Category Management</h1>
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
+      <div>
+        <h1 className="text-2xl font-bold">Category Management</h1>
+        <p className="mt-1 text-sm text-muted">
+          Create, edit, and organize marketplace categories.
+        </p>
+      </div>
 
-      <section>
-        <h2>{editingCategory ? "Edit Category" : "Create Category"}</h2>
+      <div className="mt-8 grid gap-8 lg:grid-cols-[360px_1fr]">
+        <section className="h-fit rounded-lg border border-border bg-surface p-5">
+          <h2 className="text-lg font-semibold">
+            {editingCategory ? "Edit Category" : "Create Category"}
+          </h2>
 
-        <CategoryForm
-          category={editingCategory}
-          categories={categories || []}
-          onSubmit={handleSubmit}
-          onCancel={() => setEditingCategory(null)}
-          isSubmitting={isSubmitting}
-        />
-      </section>
+          <div className="mt-5">
+            <CategoryForm
+              category={editingCategory}
+              categories={categories || []}
+              onSubmit={handleSubmit}
+              onCancel={() => setEditingCategory(null)}
+              isSubmitting={isSubmitting}
+            />
+          </div>
+        </section>
 
-      <section>
-        <h2>Categories</h2>
+        <section>
+          <h2 className="text-lg font-semibold">Categories</h2>
 
-        <CategoryTable
-          categories={categories || []}
-          onEdit={setEditingCategory}
-          onDelete={handleDelete}
-          isDeleting={deleteMutation.isPending}
-        />
-      </section>
+          <div className="mt-5">
+            <CategoryTable
+              categories={categories || []}
+              onEdit={setEditingCategory}
+              onDelete={handleDelete}
+              isDeleting={deleteMutation.isPending}
+            />
+          </div>
+        </section>
+      </div>
     </main>
   );
 };

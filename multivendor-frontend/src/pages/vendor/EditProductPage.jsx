@@ -46,16 +46,22 @@ const EditProductPage = () => {
       },
     );
   };
-
   return (
-    <main>
-      <h1>Edit Product</h1>
+    <main className="mx-auto max-w-3xl px-4 py-8 sm:py-10">
+      <div>
+        <h1 className="text-2xl font-bold">Edit Product</h1>
+        <p className="mt-1 text-sm text-muted">
+          Update your product information and inventory.
+        </p>
+      </div>
 
-      <ProductForm
-        product={product}
-        onSubmit={handleSubmit}
-        isSubmitting={updateMutation.isPending}
-      />
+      <section className="mt-8 rounded-lg border border-border bg-surface p-5 sm:p-6">
+        <ProductForm
+          product={product}
+          onSubmit={handleSubmit}
+          isSubmitting={updateMutation.isPending}
+        />
+      </section>
     </main>
   );
 };

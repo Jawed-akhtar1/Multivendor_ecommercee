@@ -24,7 +24,6 @@ const ProductPage = () => {
     page,
     size,
   });
-
   if (isLoading) {
     return <Loading message="Loading products..." />;
   }
@@ -34,23 +33,35 @@ const ProductPage = () => {
   }
 
   return (
-    <div>
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold">Products</h1>
+        <p className="mt-1 text-sm text-muted">
+          Explore products from trusted marketplace sellers.
+        </p>
+      </div>
+
       <ProductFilters
         filters={filters}
         setFilters={setFilters}
         setPage={setPage}
       />
 
-      {isFetching && <Loading message="Updating products..." />}
+      {isFetching && (
+        <p className="mt-5 text-sm text-muted">Updating products...</p>
+      )}
+      <div className="mt-6">
+        <ProductGrid products={data?.content || []} />
+      </div>
 
-      <ProductGrid products={data?.content || []} />
-
-      <Pagination
-        page={data?.number ?? page}
-        totalPages={data?.totalPages ?? 0}
-        onPageChange={setPage}
-      />
-    </div>
+      <div className="mt-8">
+        <Pagination
+          page={data?.number ?? page}
+          totalPages={data?.totalPages ?? 0}
+          onPageChange={setPage}
+        />
+      </div>
+    </main>
   );
 };
 

@@ -41,24 +41,38 @@ const VendorOrdersPage = () => {
   };
 
   return (
-    <main>
-      <h1>Vendor Orders</h1>
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
+      <div>
+        <h1 className="text-2xl font-bold">Vendor Orders</h1>
+        <p className="mt-1 text-sm text-muted">
+          Review customer orders and update their status.
+        </p>
+      </div>
 
       {orders.length === 0 ? (
-        <p>No orders found.</p>
+        <div className="mt-8 rounded-lg border border-border bg-surface p-8 text-center">
+          <h2 className="font-semibold">No orders found</h2>
+          <p className="mt-2 text-sm text-muted">
+            New customer orders will appear here.
+          </p>
+        </div>
       ) : (
-        <VendorOrderTable
-          orders={orders}
-          onStatusChange={handleStatusChange}
-          isUpdating={statusMutation.isPending}
-        />
+        <div className="mt-8">
+          <VendorOrderTable
+            orders={orders}
+            onStatusChange={handleStatusChange}
+            isUpdating={statusMutation.isPending}
+          />
+        </div>
       )}
 
-      <Pagination
-        page={data?.number ?? page}
-        totalPages={data?.totalPages ?? 0}
-        onPageChange={setPage}
-      />
+      <div className="mt-8">
+        <Pagination
+          page={data?.number ?? page}
+          totalPages={data?.totalPages ?? 0}
+          onPageChange={setPage}
+        />
+      </div>
     </main>
   );
 };

@@ -39,18 +39,29 @@ const StoreProfilePage = () => {
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <main>
-      <header>
-        <h1>Store Profile</h1>
+    <main className="mx-auto max-w-3xl px-4 py-8 sm:py-10">
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold">Store Profile</h1>
+          <p className="mt-1 text-sm text-muted">
+            Create or update your marketplace store.
+          </p>
+        </div>
 
-        {store && <p>Status: {store.status}</p>}
+        {store && (
+          <span className="rounded-full bg-success/10 px-3 py-1.5 text-sm font-medium text-success">
+            {store.status}
+          </span>
+        )}
       </header>
 
-      <StoreForm
-        store={store}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-      />
+      <section className="mt-8 rounded-lg border border-border bg-surface p-5 sm:p-6">
+        <StoreForm
+          store={store}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
+      </section>
     </main>
   );
 };

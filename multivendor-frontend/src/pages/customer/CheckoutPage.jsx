@@ -86,63 +86,91 @@ const CheckoutPage = () => {
       },
     );
   };
-
   if (cartLoading || addressesLoading) {
-    return <p>Loading checkout...</p>;
+    return (
+      <div className="py-12 text-center text-sm text-muted">
+        Loading checkout...
+      </div>
+    );
   }
 
   return (
-    <main>
-      <h1>Checkout</h1>
+    <main className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
+      <h1 className="text-2xl font-bold">Checkout</h1>
+      <p className="mt-1 text-sm text-muted">
+        Review your order and select a delivery address.
+      </p>
 
-      {/* Address */}
+      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
+        <div className="space-y-6">
+          <section className="rounded-lg border border-border bg-surface p-5">
+            <h2 className="text-lg font-semibold">Select Address</h2>
 
-      <section>
-        <h2>Select Address</h2>
+            <div className="mt-4 space-y-3">
+              {addresses?.map((address) => (
+                <label
+                  key={address.id}
+                  className={`flex cursor-pointer gap-3 rounded-md border p-4 text-sm ${
+                    addressId === address.id
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:bg-page"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="address"
+                    value={address.id}
+                    checked={addressId === address.id}
+                    onChange={() => setAddressId(address.id)}
+                    className="mt-1 accent-primary"
+                  />
 
-        {addresses?.map((address) => (
-          <label key={address.id}>
-            <input
-              type="radio"
-              name="address"
-              value={address.id}
-              checked={addressId === address.id}
-              onChange={() => setAddressId(address.id)}
+                  <span className="leading-6">
+                    <strong className="block text-foreground">
+                      {address.fullName}
+                    </strong>
+                    <span className="text-muted">
+                      {address.addressLine}, {address.city}
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </div>
+
+            {!addresses?.length && (
+              <p className="mt-4 text-sm text-muted">
+                No saved addresses found. Please add an address first.
+              </p>
+            )}
+          </section>
+
+          <section className="rounded-lg border border-border bg-surface p-5">
+            <PaymentMethodSelector
+              value={paymentMethod}
+              onChange={setPaymentMethod}
             />
+          </section>
+        </div>
 
-            <span>
-              {address.fullName}, {address.addressLine}, {address.city}
-            </span>
-          </label>
-        ))}
-      </section>
+        <aside className="h-fit rounded-lg border border-border bg-surface p-5">
+          <CheckoutSummary cart={cart} />
 
-      {/* Payment */}
-
-      <PaymentMethodSelector
-        value={paymentMethod}
-        onChange={setPaymentMethod}
-      />
-
-      {/* Summary */}
-
-      <CheckoutSummary cart={cart} />
-
-      {/* Checkout */}
-
-      <button
-        type="button"
-        onClick={handleCheckout}
-        disabled={
-          createOrderMutation.isPending || initiatePaymentMutation.isPending
-        }
-      >
-        {createOrderMutation.isPending || initiatePaymentMutation.isPending
-          ? "Processing..."
-          : paymentMethod === "CCAVENUE"
-            ? "Proceed to Payment"
-            : "Place Order"}
-      </button>
+          <button
+            type="button"
+            onClick={handleCheckout}
+            disabled={
+              createOrderMutation.isPending || initiatePaymentMutation.isPending
+            }
+            className="mt-6 w-full rounded-md bg-primary px-4 py-3 text-sm font-medium text-white hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {createOrderMutation.isPending || initiatePaymentMutation.isPending
+              ? "Processing..."
+              : paymentMethod === "CCAVENUE"
+                ? "Proceed to Payment"
+                : "Place Order"}
+          </button>
+        </aside>
+      </div>
     </main>
   );
 };
