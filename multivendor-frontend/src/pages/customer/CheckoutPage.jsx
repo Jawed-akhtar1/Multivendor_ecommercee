@@ -1,53 +1,35 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useCart } from "../../hooks/useCart";
 import { useAddresses } from "../../hooks/useAddresses";
-
 import { useCreateOrder } from "../../hooks/useOrders";
-
 import { useInitiateCCAvenuePayment } from "../../hooks/usePayments";
-
 import CheckoutSummary from "../../components/order/CheckoutSummary";
 import PaymentMethodSelector from "../../components/order/PaymentMethodSelector";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-
   const [addressId, setAddressId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("COD");
-
   const { data: cart, isLoading: cartLoading } = useCart();
-
   const { data: addresses, isLoading: addressesLoading } = useAddresses();
-
   const createOrderMutation = useCreateOrder();
-
   const initiatePaymentMutation = useInitiateCCAvenuePayment();
-
   const submitCCAvenueForm = ({ transactionUrl, encRequest, accessCode }) => {
     const form = document.createElement("form");
-
     form.method = "POST";
     form.action = transactionUrl;
-
     const encRequestInput = document.createElement("input");
-
     encRequestInput.type = "hidden";
     encRequestInput.name = "encRequest";
     encRequestInput.value = encRequest;
-
     const accessCodeInput = document.createElement("input");
-
     accessCodeInput.type = "hidden";
     accessCodeInput.name = "access_code";
     accessCodeInput.value = accessCode;
-
     form.appendChild(encRequestInput);
     form.appendChild(accessCodeInput);
-
     document.body.appendChild(form);
-
     form.submit();
   };
 
