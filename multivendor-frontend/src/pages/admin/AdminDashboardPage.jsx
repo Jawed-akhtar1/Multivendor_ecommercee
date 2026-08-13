@@ -5,27 +5,20 @@ import {
   useApprovedVendors,
   useAdminOrders,
 } from "../../hooks/useAdmin.js";
-
 import { useCategories } from "../../hooks/useCategories.js";
-
 const AdminDashboardPage = () => {
   const { data: pendingVendors, isLoading: pendingLoading } =
     usePendingVendors();
-
   const { data: approvedVendors, isLoading: approvedLoading } =
     useApprovedVendors();
-
   const { data: categories, isLoading: categoriesLoading } =
     useCategories(false);
-
   const { data: ordersData, isLoading: ordersLoading } = useAdminOrders({
     page: 0,
     size: 20,
   });
-
   const isLoading =
     pendingLoading || approvedLoading || categoriesLoading || ordersLoading;
-
   if (isLoading) {
     return (
       <main className="mx-auto max-w-7xl px-4 py-10">
@@ -34,7 +27,6 @@ const AdminDashboardPage = () => {
       </main>
     );
   }
-
   const orders = ordersData?.content || [];
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
@@ -44,7 +36,6 @@ const AdminDashboardPage = () => {
           Manage vendors, categories and orders.
         </p>
       </section>
-
       <section className="mt-8">
         <h2 className="font-semibold">Overview</h2>
 
