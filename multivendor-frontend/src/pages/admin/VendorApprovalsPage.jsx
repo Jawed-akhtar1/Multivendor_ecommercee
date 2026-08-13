@@ -5,17 +5,12 @@ import {
   useApproveVendor,
   useRejectVendor,
 } from "../../hooks/useAdmin.js";
-
 import VendorApprovalTable from "../../components/admin/VendorApprovalTable.jsx";
-
 import Loading from "../../components/common/Loading.jsx";
 import ErrorMessage from "../../components/common/ErrorMessage.jsx";
-
 const VendorApprovalsPage = () => {
   const [processingVendorId, setProcessingVendorId] = useState(null);
-
   const { data: vendors = [], isLoading, isError, error } = usePendingVendors();
-
   const approveMutation = useApproveVendor();
   const rejectMutation = useRejectVendor();
   if (isLoading) {
