@@ -14,7 +14,6 @@ import {
 
 const CartPage = () => {
   const { data: cart, isLoading, isError, error } = useCart();
-
   const updateMutation = useUpdateCartItem();
   const removeMutation = useRemoveCartItem();
   const clearMutation = useClearCart();
@@ -24,28 +23,22 @@ const CartPage = () => {
       data,
     });
   };
-
   const handleRemove = (cartItemId) => {
     removeMutation.mutate(cartItemId);
   };
-
   const handleClear = () => {
     clearMutation.mutate();
   };
   if (isLoading) {
     return <Loading message="Loading cart..." />;
   }
-
   if (isError) {
     return <ErrorMessage message={error?.message || "Failed to load cart."} />;
   }
-
   if (!cart) {
     return <NotFound message="Cart not found." />;
   }
-
   const items = cart.items || [];
-
   if (items.length === 0) {
     return (
       <main className="mx-auto max-w-7xl px-4 py-16 text-center">
@@ -56,7 +49,6 @@ const CartPage = () => {
       </main>
     );
   }
-
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
