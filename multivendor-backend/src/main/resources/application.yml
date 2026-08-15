@@ -5,9 +5,9 @@ spring:
   application:
     name: multivendor-ecommerce
   datasource:
-    url: jdbc:mysql://localhost:3306/multivendor_ecommmerce?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
-    username: "root"
-    password: "Jawed@786"
+    url: jdbc:mysql://mysql-1b05b93c-multivendorecomapp.l.aivencloud.com:14133/defaultdb?sslMode=REQUIRED
+    username: avnadmin
+    password: AVNS_TbHDh8fTt1nP4VaOjuc
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
