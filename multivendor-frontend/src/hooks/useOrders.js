@@ -13,7 +13,6 @@ export const useOrders = (page = 0, size = 10) => {
     queryFn: () => getOrders(page, size),
   });
 };
-
 export const useOrder = (id) => {
   return useQuery({
     queryKey: ["order", id],
@@ -21,40 +20,31 @@ export const useOrder = (id) => {
     enabled: Boolean(id),
   });
 };
-
 export const useCreateOrder = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: createOrder,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["orders"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["cart"],
       });
     },
   });
 };
-
 export const useCancelOrder = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: cancelOrder,
-
     onSuccess: (_, orderId) => {
       queryClient.invalidateQueries({
         queryKey: ["orders"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["order", orderId],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["cart"],
       });
