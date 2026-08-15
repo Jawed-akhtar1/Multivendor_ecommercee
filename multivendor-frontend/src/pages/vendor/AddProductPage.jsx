@@ -12,9 +12,7 @@ const AddProductPage = () => {
     isError: isStoreError,
     error: storeError,
   } = useVendorStore();
-
   const createMutation = useCreateVendorProduct();
-
   const handleSubmit = (productData) => {
     createMutation.mutate(productData, {
       onSuccess: () => {
@@ -22,10 +20,6 @@ const AddProductPage = () => {
       },
     });
   };
-
-  /*
-   * Loading store information
-   */
   if (isStoreLoading) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-8 sm:py-10">
@@ -51,7 +45,6 @@ const AddProductPage = () => {
             {storeError?.message ||
               "Unable to determine your store status."}
           </p>
-
           <button
             type="button"
             onClick={() => navigate("/vendor/store")}
@@ -67,16 +60,13 @@ const AddProductPage = () => {
     return (
       <main className="mx-auto max-w-3xl px-4 py-8 sm:py-10">
         <h1 className="text-2xl font-bold">Add Product</h1>
-
         <section className="mt-8 rounded-lg border border-border bg-surface p-6">
           <h2 className="text-lg font-semibold">
             Create your store first
           </h2>
-
           <p className="mt-2 text-sm text-muted">
             You need to create a store before you can add products.
           </p>
-
           <button
             type="button"
             onClick={() => navigate("/vendor/store")}
@@ -101,7 +91,6 @@ const AddProductPage = () => {
               Store approval pending
             </h2>
           </div>
-
           <p className="mt-3 text-sm text-muted">
             Your store has been created successfully, but it is
             waiting for administrator approval.
@@ -111,7 +100,6 @@ const AddProductPage = () => {
             You will be able to add products after your store is
             approved.
           </p>
-
           <button
             type="button"
             onClick={() => navigate("/vendor/store")}
@@ -132,12 +120,10 @@ const AddProductPage = () => {
           <h2 className="text-lg font-semibold text-red-700">
             Store approval rejected
           </h2>
-
           <p className="mt-2 text-sm text-red-600">
             Your store has not been approved by the administrator.
             You cannot add products at this time.
           </p>
-
           <button
             type="button"
             onClick={() => navigate("/vendor/store")}
@@ -153,12 +139,10 @@ const AddProductPage = () => {
     return (
       <main className="mx-auto max-w-3xl px-4 py-8 sm:py-10">
         <h1 className="text-2xl font-bold">Add Product</h1>
-
         <section className="mt-8 rounded-lg border border-border bg-surface p-6">
           <h2 className="text-lg font-semibold">
             Store is not active
           </h2>
-
           <p className="mt-2 text-sm text-muted">
             Your store is currently in the{" "}
             <strong>{store.status || "UNKNOWN"}</strong> status.
@@ -192,7 +176,6 @@ const AddProductPage = () => {
           isSubmitting={createMutation.isPending}
         />
       </section>
-
       {createMutation.isError && (
         <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4">
           <p className="text-sm text-red-600">
