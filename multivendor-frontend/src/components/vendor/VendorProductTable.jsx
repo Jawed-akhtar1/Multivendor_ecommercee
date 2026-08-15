@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-
 import StockEditor from "./StockEditor.jsx";
-
 const VendorProductTable = ({ products, onDelete, isDeleting }) => {
   return (
     <div className="overflow-x-auto rounded-lg border border-border bg-surface">
@@ -16,18 +14,15 @@ const VendorProductTable = ({ products, onDelete, isDeleting }) => {
             <th className="px-4 py-3 font-medium">Actions</th>
           </tr>
         </thead>
-
         <tbody className="divide-y divide-border">
           {products.map((product) => (
             <tr key={product.id} className="hover:bg-page/60">
               <td className="px-4 py-3 font-medium">{product.name}</td>
               <td className="px-4 py-3 text-muted">{product.sku || "—"}</td>
               <td className="px-4 py-3">₹{product.price}</td>
-
               <td className="px-4 py-3">
                 <StockEditor productId={product.id} stock={product.stock} />
               </td>
-
               <td className="px-4 py-3">
                 <span
                   className={`rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -39,7 +34,6 @@ const VendorProductTable = ({ products, onDelete, isDeleting }) => {
                   {product.active ? "Active" : "Inactive"}
                 </span>
               </td>
-
               <td className="px-4 py-3">
                 <div className="flex items-center gap-4">
                   <Link
@@ -48,7 +42,6 @@ const VendorProductTable = ({ products, onDelete, isDeleting }) => {
                   >
                     Edit
                   </Link>
-
                   <button
                     type="button"
                     onClick={() => onDelete(product.id)}
