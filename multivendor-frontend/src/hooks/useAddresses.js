@@ -8,20 +8,16 @@ import {
 } from "../api/addressApi";
 
 const ADDRESS_QUERY_KEY = ["addresses"];
-
 export const useAddresses = () => {
   return useQuery({
     queryKey: ADDRESS_QUERY_KEY,
     queryFn: getAddresses,
   });
 };
-
 export const useCreateAddress = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: createAddress,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ADDRESS_QUERY_KEY,
@@ -29,13 +25,10 @@ export const useCreateAddress = () => {
     },
   });
 };
-
 export const useUpdateAddress = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ id, addressData }) => updateAddress(id, addressData),
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ADDRESS_QUERY_KEY,
@@ -43,13 +36,10 @@ export const useUpdateAddress = () => {
     },
   });
 };
-
 export const useDeleteAddress = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: deleteAddress,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ADDRESS_QUERY_KEY,
