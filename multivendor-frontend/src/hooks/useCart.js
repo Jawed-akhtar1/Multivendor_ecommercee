@@ -24,14 +24,11 @@ export const useAddCartItem = () => {
     },
   });
 };
-
 export const useUpdateCartItem = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ cartItemId, data }) =>
       updateCartItem(cartItemId, data),
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: CART_QUERY_KEY,
@@ -39,13 +36,10 @@ export const useUpdateCartItem = () => {
     },
   });
 };
-
 export const useRemoveCartItem = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: removeCartItem,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: CART_QUERY_KEY,
@@ -53,13 +47,10 @@ export const useRemoveCartItem = () => {
     },
   });
 };
-
 export const useClearCart = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: clearCart,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: CART_QUERY_KEY,
