@@ -6,12 +6,11 @@ export const getCategories = async (topLevelOnly = false) => {
       topLevelOnly,
     },
   });
-
+console.log("Categories:", response);
   return response.data;
 };
 
 export const getCategoryById = async (id) => {
   const response = await api.get(`/categories/${id}`);
-
   return response.data;
 };

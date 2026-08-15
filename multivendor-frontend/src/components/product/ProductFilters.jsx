@@ -30,11 +30,12 @@ const ProductFilters = ({ filters, setFilters, setPage }) => {
         className="rounded-md border border-border bg-surface px-3 py-2.5 text-sm outline-none focus:border-primary"
       >
         <option value="">All Categories</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {category.name}
-          </option>
-        ))}
+        {Array.isArray(categories) &&
+          categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
       </select>
 
       <input

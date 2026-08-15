@@ -12,10 +12,10 @@ import ErrorMessage from "../../components/common/ErrorMessage.jsx";
 import NotFound from "../../components/common/NotFound.jsx";
 
 const EditProductPage = () => {
-  const { id } = useParams();
+  const { productId } = useParams();
   const navigate = useNavigate();
 
-  const { data: product, isLoading, isError, error } = useVendorProducts(id);
+  const { data: product, isLoading, isError, error } = useVendorProducts(productId);
 
   const updateMutation = useUpdateVendorProduct();
 
@@ -36,7 +36,7 @@ const EditProductPage = () => {
   const handleSubmit = (productData) => {
     updateMutation.mutate(
       {
-        productId: id,
+        productId: productId,
         productData,
       },
       {

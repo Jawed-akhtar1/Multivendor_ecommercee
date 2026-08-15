@@ -31,8 +31,15 @@ const useAuth = () => {
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
+      console.log("LOGIN RESPONSE:", data);
+
       dispatch(setCredentials(data));
+
       const redirectPath = getRoleRedirectPath(data.role);
+
+      console.log("ROLE:", data.role);
+      console.log("REDIRECT:", redirectPath);
+
       navigate(redirectPath, { replace: true });
     },
   });

@@ -12,7 +12,7 @@ const initialForm = {
 
 const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
   const [formData, setFormData] = useState(initialForm);
-
+  console.log("CATEGORIES RECEIVED:", categories);
   useEffect(() => {
     if (product) {
       setFormData({
@@ -75,19 +75,19 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="text-sm font-medium">Category</label>
+
           <select
             name="categoryId"
             value={formData.categoryId}
             onChange={handleChange}
             required
-            className="mt-2 w-full rounded-md border border-border bg-surface px-3 py-2.5 text-sm outline-none focus:border-primary"
+            className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm"
           >
             <option value="">Select category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
+
+            <option value="1">Electronics TEST</option>
+            <option value="2">Clothing TEST</option>
+            <option value="3">Books TEST</option>
           </select>
         </div>
 
