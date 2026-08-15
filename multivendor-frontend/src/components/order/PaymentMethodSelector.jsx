@@ -3,11 +3,9 @@ const PaymentMethodSelector = ({ value, onChange }) => {
     ["COD", "Cash on Delivery"],
     ["CCAVENUE", "CCAvenue"],
   ];
-
   return (
     <div>
       <h2 className="text-lg font-semibold">Payment Method</h2>
-
       <div className="mt-4 space-y-3">
         {methods.map(([method, label]) => (
           <label
