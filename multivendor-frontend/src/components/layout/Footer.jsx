@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
   return (
     <footer className="mt-12 border-t border-border bg-surface text-sm">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
