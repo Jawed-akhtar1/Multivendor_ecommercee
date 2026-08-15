@@ -6,11 +6,9 @@ const CartItem = ({ item, onUpdate, onRemove, isUpdating, isRemoving }) => {
         alt={item.productName}
         className="h-20 w-20 rounded-md border border-border object-contain sm:h-24 sm:w-24"
       />
-
       <div className="min-w-0 flex-1">
         <h3 className="truncate font-medium">{item.productName}</h3>
         <p className="mt-1 text-sm font-semibold text-primary">₹{item.price}</p>
-
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center rounded-md border border-border">
             <button
@@ -21,9 +19,7 @@ const CartItem = ({ item, onUpdate, onRemove, isUpdating, isRemoving }) => {
             >
               −
             </button>
-
             <span className="w-8 text-center text-sm">{item.quantity}</span>
-
             <button
               type="button"
               onClick={() => onUpdate(item.id, { quantity: item.quantity + 1 })}
@@ -33,7 +29,6 @@ const CartItem = ({ item, onUpdate, onRemove, isUpdating, isRemoving }) => {
               +
             </button>
           </div>
-
           <button
             type="button"
             onClick={() => onRemove(item.id)}
