@@ -1,12 +1,8 @@
 import { useState } from "react";
-
 import { useUpdateVendorProductStock } from "../../hooks/useVendor.js";
-
 const StockEditor = ({ productId, stock }) => {
   const [value, setValue] = useState(stock);
-
   const mutation = useUpdateVendorProductStock();
-
   const handleSave = () => {
     mutation.mutate({
       productId,
@@ -23,7 +19,6 @@ const StockEditor = ({ productId, stock }) => {
         aria-label="Product stock"
         className="w-20 rounded-md border border-border px-2 py-2 text-sm outline-none focus:border-primary"
       />
-
       <button
         type="button"
         onClick={handleSave}
