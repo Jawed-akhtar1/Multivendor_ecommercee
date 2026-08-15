@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 const initialForm = {
   name: "",
   description: "",
@@ -9,7 +8,6 @@ const initialForm = {
   stock: "",
   imageUrl: "",
 };
-
 const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
   const [formData, setFormData] = useState(initialForm);
   console.log("CATEGORIES RECEIVED:", categories);
@@ -26,19 +24,15 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
       });
     }
   }, [product]);
-
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     onSubmit({
       ...formData,
       categoryId: Number(formData.categoryId),
@@ -59,7 +53,6 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
           className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
       </div>
-
       <div>
         <label className="text-sm font-medium">Description</label>
         <textarea
@@ -71,11 +64,9 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
           className="mt-2 w-full resize-none rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
       </div>
-
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="text-sm font-medium">Category</label>
-
           <select
             name="categoryId"
             value={formData.categoryId}
@@ -84,13 +75,11 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
             className="mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm"
           >
             <option value="">Select category</option>
-
             <option value="1">Electronics TEST</option>
             <option value="2">Clothing TEST</option>
             <option value="3">Books TEST</option>
           </select>
         </div>
-
         <div>
           <label className="text-sm font-medium">Price</label>
           <input
@@ -104,7 +93,6 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
             className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
           />
         </div>
-
         <div>
           <label className="text-sm font-medium">SKU</label>
           <input
@@ -115,7 +103,6 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
             className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
           />
         </div>
-
         <div>
           <label className="text-sm font-medium">Stock</label>
           <input
@@ -130,7 +117,6 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
           />
         </div>
       </div>
-
       <div>
         <label className="text-sm font-medium">Image URL</label>
         <input
@@ -142,7 +128,6 @@ const ProductForm = ({ product, categories = [], onSubmit, isSubmitting }) => {
           className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
       </div>
-
       <button
         type="submit"
         disabled={isSubmitting}
