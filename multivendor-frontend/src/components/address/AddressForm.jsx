@@ -11,7 +11,6 @@ const initialForm = {
   country: "",
   isDefault: false,
 };
-
 const AddressForm = ({
   address,
   onSubmit,
@@ -19,7 +18,6 @@ const AddressForm = ({
   isSubmitting,
 }) => {
   const [formData, setFormData] = useState(initialForm);
-
   useEffect(() => {
     if (address) {
       setFormData({
@@ -37,22 +35,17 @@ const AddressForm = ({
       setFormData(initialForm);
     }
   }, [address]);
-
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     onSubmit(formData);
   };
-
   return (
   <form onSubmit={handleSubmit} className="space-y-4">
     <div className="grid gap-4 sm:grid-cols-2">
@@ -64,7 +57,6 @@ const AddressForm = ({
         required
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
-
       <input
         name="phone"
         value={formData.phone}
@@ -74,7 +66,6 @@ const AddressForm = ({
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
     </div>
-
     <input
       name="addressLine"
       value={formData.addressLine}
@@ -83,7 +74,6 @@ const AddressForm = ({
       required
       className="w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
     />
-
     <input
       name="landmark"
       value={formData.landmark}
@@ -91,7 +81,6 @@ const AddressForm = ({
       placeholder="Landmark (optional)"
       className="w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
     />
-
     <div className="grid gap-4 sm:grid-cols-2">
       <input
         name="city"
@@ -101,7 +90,6 @@ const AddressForm = ({
         required
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
-
       <input
         name="state"
         value={formData.state}
@@ -110,7 +98,6 @@ const AddressForm = ({
         required
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
-
       <input
         name="pincode"
         value={formData.pincode}
@@ -119,7 +106,6 @@ const AddressForm = ({
         required
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
-
       <input
         name="country"
         value={formData.country}
@@ -129,7 +115,6 @@ const AddressForm = ({
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
     </div>
-
     <label className="flex items-center gap-2 text-sm">
       <input
         type="checkbox"
@@ -140,7 +125,6 @@ const AddressForm = ({
       />
       Set as default address
     </label>
-
     <div className="flex justify-end gap-3 pt-2">
       {onCancel && (
         <button
@@ -151,7 +135,6 @@ const AddressForm = ({
           Cancel
         </button>
       )}
-
       <button
         type="submit"
         disabled={isSubmitting}
