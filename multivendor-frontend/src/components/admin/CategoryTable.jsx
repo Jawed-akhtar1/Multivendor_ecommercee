@@ -6,7 +6,6 @@ const CategoryTable = ({ categories, onEdit, onDelete, isDeleting }) => {
       </div>
     );
   }
-
   return (
     <div className="overflow-x-auto rounded-lg border border-border bg-surface">
       <table className="w-full min-w-[650px] text-left text-sm">
@@ -18,7 +17,6 @@ const CategoryTable = ({ categories, onEdit, onDelete, isDeleting }) => {
             <th className="px-4 py-3 font-medium">Actions</th>
           </tr>
         </thead>
-
         <tbody className="divide-y divide-border">
           {categories.map((category) => (
             <tr key={category.id} className="hover:bg-page/60">
@@ -38,7 +36,6 @@ const CategoryTable = ({ categories, onEdit, onDelete, isDeleting }) => {
                   >
                     Edit
                   </button>
-
                   <button
                     type="button"
                     onClick={() => onDelete(category.id)}
