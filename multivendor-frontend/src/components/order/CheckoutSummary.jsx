@@ -2,9 +2,7 @@ const CheckoutSummary = ({ cart }) => {
   if (!cart) {
     return <p className="text-sm text-muted">Loading cart...</p>;
   }
-
   const items = cart.items || [];
-
   return (
     <section>
       <h2 className="text-lg font-semibold">Order Summary</h2>
