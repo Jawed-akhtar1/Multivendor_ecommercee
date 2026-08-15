@@ -5,7 +5,6 @@ const initialForm = {
   description: "",
   parentId: "",
 };
-
 const CategoryForm = ({
   category,
   categories = [],
@@ -14,7 +13,6 @@ const CategoryForm = ({
   isSubmitting,
 }) => {
   const [formData, setFormData] = useState(initialForm);
-
   useEffect(() => {
     if (category) {
       setFormData({
@@ -26,19 +24,15 @@ const CategoryForm = ({
       setFormData(initialForm);
     }
   }, [category]);
-
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     onSubmit({
       name: formData.name,
       description: formData.description,
@@ -58,7 +52,6 @@ return (
         className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
     </div>
-
     <div>
       <label className="text-sm font-medium">Description</label>
       <textarea
@@ -70,7 +63,6 @@ return (
         className="mt-2 w-full resize-none rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
     </div>
-
     <div>
       <label className="text-sm font-medium">Parent category</label>
       <select
@@ -80,7 +72,6 @@ return (
         className="mt-2 w-full rounded-md border border-border bg-surface px-3 py-2.5 text-sm outline-none focus:border-primary"
       >
         <option value="">No Parent Category</option>
-
         {categories
           .filter((item) => item.id !== category?.id)
           .map((item) => (
@@ -90,7 +81,6 @@ return (
           ))}
       </select>
     </div>
-
     <div className="flex justify-end gap-3 pt-2">
       {onCancel && (
         <button
@@ -101,7 +91,6 @@ return (
           Cancel
         </button>
       )}
-
       <button
         type="submit"
         disabled={isSubmitting}
