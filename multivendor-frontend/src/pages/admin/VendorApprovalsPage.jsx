@@ -16,7 +16,6 @@ const VendorApprovalsPage = () => {
   if (isLoading) {
     return <Loading message="Loading vendors..." />;
   }
-
   if (isError) {
     return (
       <ErrorMessage
@@ -26,36 +25,28 @@ const VendorApprovalsPage = () => {
   }
   const handleApprove = (vendorId) => {
     const confirmed = window.confirm("Approve this vendor?");
-
     if (!confirmed) {
       return;
     }
-
     setProcessingVendorId(vendorId);
-
     approveMutation.mutate(vendorId, {
       onSettled: () => {
         setProcessingVendorId(null);
       },
     });
   };
-
   const handleReject = (vendorId) => {
     const confirmed = window.confirm("Reject this vendor?");
-
     if (!confirmed) {
       return;
     }
-
     setProcessingVendorId(vendorId);
-
     rejectMutation.mutate(vendorId, {
       onSettled: () => {
         setProcessingVendorId(null);
       },
     });
   };
-
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
       <div>
