@@ -6,13 +6,11 @@ import Loading from "../../components/common/Loading.jsx";
 import NotFound from "../../components/common/NotFound.jsx";
 const OrderDetailPage = () => {
   const { id } = useParams();
-
   const { data: order, isLoading, isError, error } = useOrder(id);
   const cancelMutation = useCancelOrder();
   if (isLoading) {
     return <Loading message="Loading order..." />;
   }
-
   if (isError) {
     return (
       <ErrorMessage
@@ -20,12 +18,10 @@ const OrderDetailPage = () => {
       />
     );
   }
-
   if (!order) {
     return <NotFound message="Order not found." />;
   }
   const canCancel = order.status === "PLACED" || order.status === "CONFIRMED";
-
   const handleCancel = () => {
     const confirmed = window.confirm(
       "Are you sure you want to cancel this order?",
@@ -34,10 +30,8 @@ const OrderDetailPage = () => {
     if (!confirmed) {
       return;
     }
-
     cancelMutation.mutate(order.id);
   };
-
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
       <Link
@@ -46,7 +40,6 @@ const OrderDetailPage = () => {
       >
         ← Back to Orders
       </Link>
-
       <header className="mt-5 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">
@@ -92,7 +85,6 @@ const OrderDetailPage = () => {
 
           <section className="rounded-lg border border-border bg-surface p-5">
             <h2 className="font-semibold">Shipping Address</h2>
-
             {order.shippingAddress ? (
               <div className="mt-3 text-sm leading-6 text-muted">
                 <p className="font-medium text-foreground">
@@ -116,7 +108,6 @@ const OrderDetailPage = () => {
             )}
           </section>
         </div>
-
         <aside className="space-y-6">
           <section className="rounded-lg border border-border bg-surface p-5">
             <h2 className="font-semibold">Order Information</h2>
