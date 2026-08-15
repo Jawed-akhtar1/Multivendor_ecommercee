@@ -32,54 +32,44 @@ const AppLayout = () => {
   return (
     <>
       <Navbar />
-
       <main>
         <Outlet />
       </main>
-
       <Footer />
     </>
   );
 };
 const router = createBrowserRouter([
-
   {
     element: <AppLayout />,
-
     children: [
       {
         path: "/",
         element: <HomePage />,
       },
-
       {
         path: "/products",
         element: <ProductsPage />,
       },
-
       {
         path: "/products/:id",
         element: <ProductDetailPage />,
       },
       {
         element: <GuestRoute />,
-
         children: [
           {
             path: "/login",
             element: <LoginPage />,
           },
-
           {
             path: "/register",
             element: <RegisterPage />,
           },
         ],
       },
-
       {
         element: <ProtectedRoute />,
-
         children: [
           {
             element: (
@@ -87,28 +77,23 @@ const router = createBrowserRouter([
                 allowedRoles={["CUSTOMER"]}
               />
             ),
-
             children: [
               {
                 path: "/cart",
                 element: <CartPage />,
               },
-
               {
                 path: "/addresses",
                 element: <AddressesPage />,
               },
-
               {
                 path: "/checkout",
                 element: <CheckoutPage />,
               },
-
               {
                 path: "/orders",
                 element: <OrdersPage />,
               },
-
               {
                 path: "/orders/:id",
                 element: <OrderDetailPage />,
@@ -117,10 +102,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
         element: <ProtectedRoute />,
-
         children: [
           {
             element: (
@@ -128,33 +111,27 @@ const router = createBrowserRouter([
                 allowedRoles={["VENDOR"]}
               />
             ),
-
             children: [
               {
                 path: "/vendor/dashboard",
                 element: <VendorDashboardPage />,
               },
-
               {
                 path: "/vendor/store",
                 element: <StoreProfilePage />,
               },
-
               {
                 path: "/vendor/products",
                 element: <VendorProductsPage />,
               },
-
               {
                 path: "/vendor/products/add",
                 element: <AddProductPage />,
               },
-
               {
                 path: "/vendor/products/:productId/edit",
                 element: <EditProductPage />,
               },
-
               {
                 path: "/vendor/orders",
                 element: <VendorOrdersPage />,
@@ -163,10 +140,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-
-      {
+     {
         element: <ProtectedRoute />,
-
         children: [
           {
             element: (
@@ -174,23 +149,19 @@ const router = createBrowserRouter([
                 allowedRoles={["ADMIN"]}
               />
             ),
-
             children: [
               {
                 path: "/admin",
                 element: <AdminDashboardPage />,
               },
-
               {
                 path: "/admin/vendors",
                 element: <VendorApprovalsPage />,
               },
-
               {
                 path: "/admin/categories",
                 element: <CategoryManagementPage />,
               },
-
               {
                 path: "/admin/orders",
                 element: <AdminOrdersPage />,
