@@ -1,12 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-
 import  useAuth  from "../../hooks/useAuth.js";
-
 const Navbar = () => {
   const navigate = useNavigate();
-
   const { user, isAuthenticated, logout, isLoggingOut } = useAuth();
-
   const handleLogout = () => {
     logout(undefined, {
       onSuccess: () => {
@@ -17,19 +13,16 @@ const Navbar = () => {
       },
     });
   };
-
   return (
   <nav className="border-b border-border bg-surface">
     <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4">
       <Link to="/" className="text-lg font-bold text-foreground">
         MV-ECOM
       </Link>
-
       <div className="flex items-center gap-4 text-sm text-muted">
         <Link to="/" className="hover:text-foreground">Home</Link>
         <Link to="/products" className="hover:text-foreground">Products</Link>
       </div>
-
       <div className="flex items-center gap-4 text-sm">
         {!isAuthenticated ? (
           <>
@@ -52,7 +45,6 @@ const Navbar = () => {
                 <Link to="/addresses">Addresses</Link>
               </>
             )}
-
             {user?.role === "VENDOR" && (
               <>
                 <Link to="/vendor/dashboard">Dashboard</Link>
@@ -61,7 +53,6 @@ const Navbar = () => {
                 <Link to="/vendor/store">Store</Link>
               </>
             )}
-
             {user?.role === "ADMIN" && (
               <>
                 <Link to="/admin">Dashboard</Link>
@@ -70,9 +61,7 @@ const Navbar = () => {
                 <Link to="/admin/orders">Orders</Link>
               </>
             )}
-
             <span className="text-muted">Welcome, {user?.name}</span>
-
             <button
               type="button"
               onClick={handleLogout}
