@@ -8,9 +8,7 @@ import ErrorMessage from "../../components/common/ErrorMessage.jsx";
 const OrdersPage = () => {
   const [page, setPage] = useState(0);
   const size = 10;
-
   const { data, isLoading, isError, error, isFetching } = useOrders(page, size);
-
   if (isLoading) {
     return <Loading message="Loading orders..." />;
   }
@@ -28,11 +26,9 @@ const OrdersPage = () => {
       <p className="mt-1 text-sm text-muted">
         View and track your marketplace purchases.
       </p>
-
       {isFetching && (
         <p className="mt-4 text-sm text-muted">Updating orders...</p>
       )}
-
       {orders.length === 0 ? (
         <div className="mt-8 rounded-lg border border-border bg-surface p-8 text-center">
           <h2 className="font-semibold">No orders yet</h2>
@@ -47,7 +43,6 @@ const OrdersPage = () => {
               <OrderCard key={order.id} order={order} />
             ))}
           </div>
-
           <div className="mt-8">
             <Pagination
               page={data?.number ?? page}
