@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 const GuestRoute = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-
   if (!isAuthenticated) {
     return <Outlet />;
   }
