@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import {
   useVendorStore,
   useVendorProducts,
@@ -57,7 +56,6 @@ const VendorDashboardPage = () => {
 
       <section className="mt-8 rounded-lg border border-border bg-surface p-5">
         <h2 className="font-semibold">Store Status</h2>
-
         {!store ? (
           <div className="mt-3 text-sm">
             <p className="text-muted">You haven't created your store yet.</p>
@@ -86,7 +84,6 @@ const VendorDashboardPage = () => {
 
       <section className="mt-8">
         <h2 className="font-semibold">Overview</h2>
-
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             [
@@ -153,7 +150,6 @@ const VendorDashboardPage = () => {
             View All
           </Link>
         </div>
-
         {orders.length === 0 ? (
           <p className="mt-4 text-sm text-muted">
             You don't have any orders yet.
