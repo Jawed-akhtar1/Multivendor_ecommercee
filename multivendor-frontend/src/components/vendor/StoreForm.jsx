@@ -6,10 +6,8 @@ const initialForm = {
   gstNumber: "",
   logoUrl: "",
 };
-
 const StoreForm = ({ store, onSubmit, isSubmitting }) => {
   const [formData, setFormData] = useState(initialForm);
-
   useEffect(() => {
     if (store) {
       setFormData({
@@ -29,10 +27,8 @@ const StoreForm = ({ store, onSubmit, isSubmitting }) => {
       [name]: value,
     }));
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     onSubmit(formData);
   };
   return (
@@ -48,7 +44,6 @@ const StoreForm = ({ store, onSubmit, isSubmitting }) => {
           className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
       </div>
-
       <div>
         <label className="text-sm font-medium">Store description</label>
         <textarea
@@ -60,7 +55,6 @@ const StoreForm = ({ store, onSubmit, isSubmitting }) => {
           className="mt-2 w-full resize-none rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
       </div>
-
       <div>
         <label className="text-sm font-medium">GST number</label>
         <input
@@ -71,7 +65,6 @@ const StoreForm = ({ store, onSubmit, isSubmitting }) => {
           className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
       </div>
-
       <div>
         <label className="text-sm font-medium">Logo URL</label>
         <input
@@ -83,7 +76,6 @@ const StoreForm = ({ store, onSubmit, isSubmitting }) => {
           className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
       </div>
-
       <button
         type="submit"
         disabled={isSubmitting}
