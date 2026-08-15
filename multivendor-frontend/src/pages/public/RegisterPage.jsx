@@ -13,16 +13,13 @@ const RegisterPage = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormData((previous) => ({
       ...previous,
       [name]: value,
     }));
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     register(formData);
   };
 
@@ -36,7 +33,6 @@ const RegisterPage = () => {
         <p className="mt-2 text-sm text-muted">
           Join the marketplace as a customer or seller.
         </p>
-
         <div className="mt-6">
           <label htmlFor="name" className="text-sm font-medium">
             Name
@@ -50,7 +46,6 @@ const RegisterPage = () => {
             className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
           />
         </div>
-
         <div className="mt-4">
           <label htmlFor="email" className="text-sm font-medium">
             Email
@@ -65,7 +60,6 @@ const RegisterPage = () => {
             className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
           />
         </div>
-
         <div className="mt-4">
           <label htmlFor="password" className="text-sm font-medium">
             Password
@@ -81,7 +75,6 @@ const RegisterPage = () => {
             className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
           />
         </div>
-
         <div className="mt-4">
           <label htmlFor="phone" className="text-sm font-medium">
             Phone
@@ -95,7 +88,6 @@ const RegisterPage = () => {
             className="mt-2 w-full rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
           />
         </div>
-
         <div className="mt-4">
           <label htmlFor="role" className="text-sm font-medium">
             Role
@@ -111,13 +103,11 @@ const RegisterPage = () => {
             <option value="VENDOR">Vendor</option>
           </select>
         </div>
-
         {registerError && (
           <p className="mt-4 text-sm text-danger">
             {registerError.response?.data?.message || "Registration failed"}
           </p>
         )}
-
         <button
           type="submit"
           disabled={isRegistering}
