@@ -38,12 +38,10 @@ const CheckoutPage = () => {
       alert("Please select an address.");
       return;
     }
-
     if (!cart?.items?.length) {
       alert("Your cart is empty.");
       return;
     }
-
     createOrderMutation.mutate(
       {
         addressId,
@@ -56,7 +54,6 @@ const CheckoutPage = () => {
 
             return;
           }
-
           try {
             const payment = await initiatePaymentMutation.mutateAsync(order.id);
 
@@ -75,14 +72,12 @@ const CheckoutPage = () => {
       </div>
     );
   }
-
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
       <h1 className="text-2xl font-bold">Checkout</h1>
       <p className="mt-1 text-sm text-muted">
         Review your order and select a delivery address.
       </p>
-
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
         <div className="space-y-6">
           <section className="rounded-lg border border-border bg-surface p-5">
@@ -106,7 +101,6 @@ const CheckoutPage = () => {
                     onChange={() => setAddressId(address.id)}
                     className="mt-1 accent-primary"
                   />
-
                   <span className="leading-6">
                     <strong className="block text-foreground">
                       {address.fullName}
@@ -125,7 +119,6 @@ const CheckoutPage = () => {
               </p>
             )}
           </section>
-
           <section className="rounded-lg border border-border bg-surface p-5">
             <PaymentMethodSelector
               value={paymentMethod}
@@ -133,7 +126,6 @@ const CheckoutPage = () => {
             />
           </section>
         </div>
-
         <aside className="h-fit rounded-lg border border-border bg-surface p-5">
           <CheckoutSummary cart={cart} />
 
