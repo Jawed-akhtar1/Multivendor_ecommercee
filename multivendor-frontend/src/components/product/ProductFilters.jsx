@@ -1,16 +1,12 @@
 import { useCategories } from "../../hooks/useCategories.js";
-
 const ProductFilters = ({ filters, setFilters, setPage }) => {
   const { data: categories = [] } = useCategories();
-
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFilters((previous) => ({
       ...previous,
       [name]: value,
     }));
-
     setPage(0);
   };
   return (
@@ -22,7 +18,6 @@ const ProductFilters = ({ filters, setFilters, setPage }) => {
         onChange={handleChange}
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary lg:col-span-2"
       />
-
       <select
         name="categoryId"
         value={filters.categoryId}
@@ -37,7 +32,6 @@ const ProductFilters = ({ filters, setFilters, setPage }) => {
             </option>
           ))}
       </select>
-
       <input
         name="minPrice"
         type="number"
@@ -47,7 +41,6 @@ const ProductFilters = ({ filters, setFilters, setPage }) => {
         onChange={handleChange}
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
-
       <input
         name="maxPrice"
         type="number"
@@ -57,7 +50,6 @@ const ProductFilters = ({ filters, setFilters, setPage }) => {
         onChange={handleChange}
         className="rounded-md border border-border px-3 py-2.5 text-sm outline-none focus:border-primary"
       />
-
       <select
         name="sortBy"
         value={filters.sortBy}
