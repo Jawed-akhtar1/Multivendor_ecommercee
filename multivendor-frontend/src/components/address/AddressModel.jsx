@@ -10,7 +10,6 @@ const AddressModal = ({
   if (!isOpen) {
     return null;
   }
-
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 px-4 py-6"
@@ -23,7 +22,6 @@ const AddressModal = ({
           <h2 id="address-modal-title" className="text-xl font-semibold">
             {address ? "Edit Address" : "Add Address"}
           </h2>
-
           <button
             type="button"
             onClick={onCancel}
@@ -33,7 +31,6 @@ const AddressModal = ({
             ✕
           </button>
         </div>
-
         <AddressForm
           address={address}
           onSubmit={onSubmit}
