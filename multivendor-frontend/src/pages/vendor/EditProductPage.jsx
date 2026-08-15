@@ -4,9 +4,7 @@ import {
   useVendorProducts,
   useUpdateVendorProduct,
 } from "../../hooks/useVendor.js";
-
 import ProductForm from "../../components/vendor/ProductForm.jsx";
-
 import Loading from "../../components/common/Loading.jsx";
 import ErrorMessage from "../../components/common/ErrorMessage.jsx";
 import NotFound from "../../components/common/NotFound.jsx";
@@ -14,25 +12,19 @@ import NotFound from "../../components/common/NotFound.jsx";
 const EditProductPage = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-
   const { data: product, isLoading, isError, error } = useVendorProducts(productId);
-
   const updateMutation = useUpdateVendorProduct();
-
   if (isLoading) {
     return <Loading message="Loading product..." />;
   }
-
   if (isError) {
     return (
       <ErrorMessage message={error?.message || "Unable to load product."} />
     );
   }
-
   if (!product) {
     return <NotFound message="Product not found." />;
   }
-
   const handleSubmit = (productData) => {
     updateMutation.mutate(
       {
