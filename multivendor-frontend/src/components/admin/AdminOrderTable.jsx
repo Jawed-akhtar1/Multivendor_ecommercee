@@ -6,7 +6,6 @@ const AdminOrderTable = ({ orders }) => {
       </div>
     );
   }
-
   return (
     <div className="overflow-x-auto rounded-lg border border-border bg-surface">
       <table className="w-full min-w-[750px] text-left text-sm">
@@ -20,32 +19,26 @@ const AdminOrderTable = ({ orders }) => {
             <th className="px-4 py-3 font-medium">Date</th>
           </tr>
         </thead>
-
         <tbody className="divide-y divide-border">
           {orders.map((order) => (
             <tr key={order.id} className="hover:bg-page/60">
               <td className="px-4 py-3 font-medium">
                 #{order.orderNumber || order.id}
               </td>
-
               <td className="px-4 py-3">
                 {order.customerName || order.customer?.name || "N/A"}
               </td>
-
               <td className="px-4 py-3 font-medium">
                 ₹{order.totalAmount ?? 0}
               </td>
-
               <td className="px-4 py-3">
                 {order.payment?.paymentMethod || order.paymentMethod || "N/A"}
               </td>
-
               <td className="px-4 py-3">
                 <span className="rounded-full bg-page px-2.5 py-1 text-xs text-muted">
                   {order.status || "N/A"}
                 </span>
               </td>
-
               <td className="px-4 py-3 text-muted">
                 {order.createdAt
                   ? new Date(order.createdAt).toLocaleDateString()
