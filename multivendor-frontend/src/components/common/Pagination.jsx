@@ -2,7 +2,6 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
   if (totalPages <= 1) {
     return null;
   }
-
   return (
     <div className="flex flex-wrap items-center justify-center gap-2">
       <button
@@ -13,7 +12,6 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
       >
         Previous
       </button>
-
       {Array.from({ length: totalPages }, (_, index) => (
         <button
           key={index}
@@ -29,7 +27,6 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
           {index + 1}
         </button>
       ))}
-
       <button
         type="button"
         disabled={page === totalPages - 1}
