@@ -18,13 +18,10 @@ export const useVendorStore = () => {
     queryFn: getVendorStore,
   });
 };
-
 export const useCreateVendorStore = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: createVendorStore,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["vendor", "store"],
@@ -35,10 +32,8 @@ export const useCreateVendorStore = () => {
 
 export const useUpdateVendorStore = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: updateVendorStore,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["vendor", "store"],
@@ -56,34 +51,27 @@ export const useVendorProducts = (params = {}) => {
 
 export const useCreateVendorProduct = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: createVendorProduct,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["vendor", "products"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },
   });
 };
-
 export const useUpdateVendorProduct = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ productId, productData }) =>
       updateVendorProduct(productId, productData),
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["vendor", "products"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });
@@ -93,15 +81,12 @@ export const useUpdateVendorProduct = () => {
 
 export const useDeleteVendorProduct = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: deleteVendorProduct,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["vendor", "products"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });
@@ -111,16 +96,13 @@ export const useDeleteVendorProduct = () => {
 
 export const useUpdateVendorProductStock = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ productId, stock }) =>
       updateVendorProductStock(productId, stock),
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["vendor", "products"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });
@@ -136,16 +118,13 @@ export const useVendorOrders = (params = {}) => {
 
 export const useUpdateVendorOrderItemStatus = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ orderItemId, status }) =>
       updateVendorOrderItemStatus(orderItemId, status),
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["vendor", "orders"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["orders"],
       });
