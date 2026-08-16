@@ -23,7 +23,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -46,8 +45,10 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
+
         return provider;
     }
 
@@ -59,54 +60,68 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(
-            HttpSecurity http
-    ) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .cors(cors ->
+                cors.configurationSource(corsConfigurationSource())
+            )
             .csrf(AbstractHttpConfigurer::disable)
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthEntryPoint))
-            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+            .exceptionHandling(ex ->
+                ex.authenticationEntryPoint(jwtAuthEntryPoint)
+            )
+            .sessionManagement(sm ->
+                sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
             .authorizeHttpRequests(auth -> auth
 
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                .requestMatchers("/api/auth/**").permitAll()
-
-                .requestMatchers(
-                        HttpMethod.POST,
-                        "/api/payments/ccavenue/callback"
-                ).permitAll()
+                .requestMatchers("/api/auth/**")
+                .permitAll()
 
                 .requestMatchers(
-                        HttpMethod.POST,
-                        "/api/shipping/webhook"
-                ).permitAll()
-
-                .requestMatchers("/actuator/health").permitAll()
-
-                .requestMatchers(
-                        HttpMethod.GET,
-                        "/api/products/*/reviews/mine"
-                ).authenticated()
+                    HttpMethod.POST,
+                    "/api/payments/ccavenue/callback"
+                )
+                .permitAll()
 
                 .requestMatchers(
-                        HttpMethod.GET,
-                        "/api/products/**",
-                        "/api/categories/**"
-                ).permitAll()
+                    HttpMethod.POST,
+                    "/api/shipping/webhook"
+                )
+                .permitAll()
 
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/actuator/health")
+                .permitAll()
 
-                .requestMatchers("/api/vendor/**").hasRole("VENDOR")
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/products/*/reviews/mine"
+                )
+                .authenticated()
 
-                .anyRequest().authenticated()
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/products/**",
+                    "/api/categories/**"
+                )
+                .permitAll()
+
+                .requestMatchers("/api/admin/**")
+                .hasRole("ADMIN")
+
+                .requestMatchers("/api/vendor/**")
+                .hasRole("VENDOR")
+
+                .anyRequest()
+                .authenticated()
             )
+
             .authenticationProvider(authenticationProvider())
+
             .addFilterBefore(
-                    jwtAuthFilter,
-                    UsernamePasswordAuthenticationFilter.class
+                jwtAuthFilter,
+                UsernamePasswordAuthenticationFilter.class
             );
 
         return http.build();
@@ -117,31 +132,33 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        List<String> origins = Arrays.stream(allowedOrigins.split(","))
-                .map(String::trim)
-                .filter(origin -> !origin.isEmpty())
-                .toList();
-
-        configuration.setAllowedOriginPatterns(origins);
-
-        configuration.setAllowedMethods(
-                List.of(
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "PATCH",
-                        "DELETE",
-                        "OPTIONS"
-                )
+        configuration.setAllowedOriginPatterns(
+            List.of(allowedOrigins.split(","))
         );
 
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedMethods(
+            List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "OPTIONS"
+            )
+        );
+
+        configuration.setAllowedHeaders(
+            List.of("*")
+        );
+
         configuration.setAllowCredentials(true);
-
         UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+            new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration(
+            "/**",
+            configuration
+        );
 
         return source;
     }
