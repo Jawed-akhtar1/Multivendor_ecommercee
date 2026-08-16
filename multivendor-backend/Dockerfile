@@ -2,11 +2,9 @@
 FROM maven:3.9-eclipse-temurin-17 AS builder
 WORKDIR /app
 
-# Copy pom.xml first so dependency layer is cached separately from source changes
 COPY pom.xml .
 RUN mvn -q dependency:go-offline
 
-# Copy source and build the executable JAR (tests skipped for faster image builds)
 COPY src src
 RUN mvn -q clean package -DskipTests
 
