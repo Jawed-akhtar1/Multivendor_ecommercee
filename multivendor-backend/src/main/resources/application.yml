@@ -21,11 +21,13 @@ spring:
     default-property-inclusion: non_null
 
 app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
   jwt:
     # Change this secret before deploying to production. Must be >= 256 bits for HS256.
     secret: ${JWT_SECRET:change-this-super-secret-key-please-replace-in-prod-min-32-bytes}
-    expiration-ms: 86400000   # 24 hours
-    refresh-expiration-ms: 604800000  # 7 days
+    expiration-ms: 86400000 # 24 hours
+    refresh-expiration-ms: 604800000 # 7 days
 
   # --- Shiprocket (real courier API) ---
   # Sign up at https://www.shiprocket.in, add a pickup address in
@@ -34,7 +36,7 @@ app:
   # API does not use separate API keys, it exchanges email/password for a
   # short-lived bearer token (see ShiprocketClient).
   shiprocket:
-    enabled: ${SHIPROCKET_ENABLED:false}   # keep false until real credentials are set
+    enabled: ${SHIPROCKET_ENABLED:false} # keep false until real credentials are set
     base-url: ${SHIPROCKET_BASE_URL:https://apiv2.shiprocket.in/v1/external}
     email: ${SHIPROCKET_EMAIL:}
     password: ${SHIPROCKET_PASSWORD:}
@@ -51,7 +53,7 @@ app:
   # a live/production CCAvenue account. Confirm both URLs against CCAvenue's
   # current docs before going live.
   ccavenue:
-    enabled: ${CCAVENUE_ENABLED:false}   # keep false until real credentials are set
+    enabled: ${CCAVENUE_ENABLED:false} # keep false until real credentials are set
     merchant-id: ${CCAVENUE_MERCHANT_ID:}
     working-key: ${CCAVENUE_WORKING_KEY:}
     access-code: ${CCAVENUE_ACCESS_CODE:}

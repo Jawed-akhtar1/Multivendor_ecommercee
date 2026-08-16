@@ -4,6 +4,7 @@ import com.multivendor.ecommerce.security.CustomUserDetailsService;
 import com.multivendor.ecommerce.security.JwtAuthEntryPoint;
 import com.multivendor.ecommerce.security.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -33,6 +34,9 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
+    @Value("${app.cors.allowed-origins:http://localhost:5173}")
+    private String allowedOrigins;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -41,60 +45,121 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
+
         return provider;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config
+    ) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(AbstractHttpConfigurer::disable)
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthEntryPoint))
-            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                // Public
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/payments/ccavenue/callback").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/shipping/webhook").permitAll()
-                .requestMatchers("/actuator/health").permitAll()
-
-                // More specific than the GET /api/products/** rule below, so it must come first:
-                // Spring Security evaluates matchers in order and uses the first match.
-                .requestMatchers(HttpMethod.GET, "/api/products/*/reviews/mine").authenticated()
-                .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/categories/**").permitAll()
-
-                // Admin only
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                // Vendor only
-                .requestMatchers("/api/vendor/**").hasRole("VENDOR")
-
-                // Everything else needs authentication (cart, orders, addresses, etc.)
-                .anyRequest().authenticated()
+            .cors(cors ->
+                cors.configurationSource(corsConfigurationSource())
             )
+            .csrf(AbstractHttpConfigurer::disable)
+
+            .exceptionHandling(ex ->
+                ex.authenticationEntryPoint(jwtAuthEntryPoint)
+            )
+            .sessionManagement(sm ->
+                sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .authorizeHttpRequests(auth -> auth
+
+                .requestMatchers("/api/auth/**")
+                .permitAll()
+
+                .requestMatchers(
+                    HttpMethod.POST,
+                    "/api/payments/ccavenue/callback"
+                )
+                .permitAll()
+
+                .requestMatchers(
+                    HttpMethod.POST,
+                    "/api/shipping/webhook"
+                )
+                .permitAll()
+
+                .requestMatchers("/actuator/health")
+                .permitAll()
+
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/products/*/reviews/mine"
+                )
+                .authenticated()
+
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/products/**",
+                    "/api/categories/**"
+                )
+                .permitAll()
+
+                .requestMatchers("/api/admin/**")
+                .hasRole("ADMIN")
+
+                .requestMatchers("/api/vendor/**")
+                .hasRole("VENDOR")
+
+                .anyRequest()
+                .authenticated()
+            )
+
             .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+            .addFilterBefore(
+                jwtAuthFilter,
+                UsernamePasswordAuthenticationFilter.class
+            );
 
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:*"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOriginPatterns(
+            List.of(allowedOrigins.split(","))
+        );
+
+        configuration.setAllowedMethods(
+            List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "OPTIONS"
+            )
+        );
+
+        configuration.setAllowedHeaders(
+            List.of("*")
+        );
+
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source =
+            new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration(
+            "/**",
+            configuration
+        );
+
         return source;
     }
 }
