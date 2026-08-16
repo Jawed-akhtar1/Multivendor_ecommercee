@@ -1,1 +1,1 @@
-https://multivendorecommercee-9goyrmstg-mohd-jabirs-projects.vercel.app
+https://multivendorecommercee.vercel.app
